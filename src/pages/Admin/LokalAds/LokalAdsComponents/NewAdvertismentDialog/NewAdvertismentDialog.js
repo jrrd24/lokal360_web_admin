@@ -12,6 +12,7 @@ import theme from "../../../../../Theme";
 import ButtonSave from "../../../../../components/Buttons/ButtonSave";
 import ButtonCloseDialog from "../../../../../components/Buttons/ButtonCloseDialog";
 import { useForm } from "react-hook-form";
+import UnderContruction from "../../../../../components/Loading/UnderContruction";
 
 function NewAdvertismentDialog({ open, handleClose, isSmScreen, handleSave }) {
   //for react hook form
@@ -67,7 +68,7 @@ function NewAdvertismentDialog({ open, handleClose, isSmScreen, handleSave }) {
           <DialogContent sx={{ ...theme.components.dialog.dialogContent }}>
             {/*Main*/}
             <Stack spacing={2} sx={{ width: "600px" }}>
-              PLACE CONTENT HERE
+              <UnderContruction />
             </Stack>
           </DialogContent>
 

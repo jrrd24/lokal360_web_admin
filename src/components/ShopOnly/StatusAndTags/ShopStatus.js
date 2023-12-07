@@ -1,23 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { Box, Typography } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import theme from "../../../Theme";
+import { Box, Typography } from "@mui/material";
 
-
-function  StatusUser({ status }) {
+function ShopStatus({ status }) {
   const [colorType, setColorType] = useState("");
 
   useEffect(() => {
-    if (status === "Banned") {
-      setColorType("danger");
-    } else if (status === "Temporary Ban") {
+    if (status === "Approved") {
       setColorType("success");
-    } else if (status === "Regular") {
-      setColorType("success");
-    } else if (status === "Warning Issued") {
-      setColorType("warning");
-      
-    } else {
-      setColorType("text");
+    } else if (status === "Rejected") {
+      setColorType("rejected");
+    } else if (status === "Pending Approval") {
+      setColorType("orange");
     }
   }, [status]);
 
@@ -34,11 +28,10 @@ function  StatusUser({ status }) {
       }}
     >
       <Typography variant="status" color={color}>
-        {status}
+        {status === "Pending Approval" ? "Pending" : status}
       </Typography>
     </Box>
   );
 }
 
-
-export default StatusUser;
+export default ShopStatus;

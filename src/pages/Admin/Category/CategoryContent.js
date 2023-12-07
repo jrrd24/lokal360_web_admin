@@ -2,16 +2,14 @@ import React from "react";
 import { Box } from "@mui/material";
 import PageInfoComponent from "../../../components/PageInfoAndTime/PageInfoComponent";
 import theme from "../../../Theme";
-import MyPromos from "./PromosShopComponents/MyPromos";
+import MyCategories from "./PromosShopComponents/MyCategories";
 
 function CategoryContent() {
   return (
     <Box sx={{ ...theme.components.box.pageContainer }}>
       <PageInfoComponent
         PageName={"Categories"}
-        Subtitle={
-          "View and Manage Lokal 360's Categories"
-        }
+        Subtitle={"View and Manage Lokal 360's Categories"}
       />
 
       {/*Main Content*/}
@@ -20,7 +18,7 @@ function CategoryContent() {
         <Box sx={{ ...classes.leftContainer }}>
           {/*My Customers*/}
           <Box sx={{ ...classes.customerContainer }}>
-            <MyPromos />
+            <MyCategories />
           </Box>
         </Box>
       </Box>

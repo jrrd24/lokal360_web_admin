@@ -1,11 +1,11 @@
 import React from "react";
 import { Box, Stack, Typography } from "@mui/material";
 import theme from "../../../../Theme";
-import DataGridPromos from "./DataGridPromos";
+import DataGridCategories from "./DataGridCategories";
 import ButtonAdd from "../../../../components/Buttons/ButtonAdd";
 import NewPromoDialog from "./NewPromoDialog/NewPromoDialog";
 
-function MyPromos() {
+function MyCategories() {
   // Handle Open Dialog Box (AddProduct)
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
@@ -24,7 +24,7 @@ function MyPromos() {
             <ButtonAdd label={"Add Category"} onClickAction={handleOpen} />
           </Box>
 
-          <DataGridPromos />
+          <DataGridCategories />
         </Stack>
       </Box>
 
@@ -43,4 +43,4 @@ const classes = {
     },
   },
 };
-export default MyPromos;
+export default MyCategories;

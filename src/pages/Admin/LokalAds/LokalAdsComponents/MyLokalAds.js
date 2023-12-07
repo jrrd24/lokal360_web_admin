@@ -23,7 +23,7 @@ function MyLokalAds() {
           {/*Section Name */}
           <Box direction={"row"} sx={{ ...classes.sectionName }}>
             <Typography variant="sectionTitle">All Sitewide Ads</Typography>
-            <ButtonAdd label={"LokalAdz"} onClickAction={handleOpen} />
+            <ButtonAdd label={"New LokalAd"} onClickAction={handleOpen} />
 
             {/*TODO: Add onClick for Button */}
           </Box>

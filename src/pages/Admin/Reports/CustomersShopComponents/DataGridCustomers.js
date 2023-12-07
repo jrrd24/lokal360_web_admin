@@ -8,6 +8,8 @@ import MenuItem from "@mui/material/MenuItem";
 import { styled, alpha } from "@mui/material/styles";
 import { ChatBubble, ReportProblem } from "@mui/icons-material";
 import CustomDataGrid from "../../../../components/CustomDataGrid";
+import StatusUser from "../../../../components/ShopOnly/StatusAndTags/StatusUser";
+import reportsData from "../../../../data/reportsData";
 
 // Styling for the custom menu
 const StyledMenu = styled((props) => (
@@ -53,7 +55,7 @@ const StyledMenu = styled((props) => (
   },
 }));
 
-function  DataGridCustomers() {
+function DataGridCustomers() {
   // State and event handlers for the menu
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -66,11 +68,10 @@ function  DataGridCustomers() {
 
   // Define data grid columns
   const columns = [
-  
     {
       field: "img",
-      headerName: "Reported User",
-      width: 105,
+      headerName: "Image",
+      width: 80,
       disableExport: true,
       renderCell: (params) => {
         const img = params.value;
@@ -93,36 +94,69 @@ function  DataGridCustomers() {
       },
     },
     {
-      field: "username",
-      headerName: "Name",
-      width: 160,
+      field: "reportUsername",
+      headerName: "Reported User",
+      width: 220,
     },
-    
-      {
-        field: "status",
-        headerName: "Report Status",
-        width: 170,
-        renderCell: (params) => {
-          const status = params.value;
-          let statusComponent;
-          if (
-            status === "Pending" ||
-            status === "Under Review" ||
-            status === "Resolved"
-          ) {
-            statusComponent = <CustomerStatus status={status} />;
-          } else {
-            statusComponent = <CustomerStatus status={"N/A"} />;
-          }
-  
-          return statusComponent;
-        },
+
+    {
+      field: "status",
+      headerName: "Report Status",
+      width: 150,
+      renderCell: (params) => {
+        const status = params.value;
+        let statusComponent;
+        if (
+          status === "Pending" ||
+          status === "Resolved" ||
+          status === "Under Review"
+        ) {
+          statusComponent = <CustomerStatus status={status} />;
+        } else {
+          statusComponent = <CustomerStatus status={"N/A"} />;
+        }
+
+        return statusComponent;
       },
-      {
-        field: "type_list",
-        headerName: "Type",
-        width: 180,
+    },
+    {
+      field: "user_type",
+      headerName: "Type",
+      width: 150,
+      renderCell: (params) => {
+        const userType = params.value;
+        let statusComponent;
+        if (userType === "Shopper" || userType === "Shop") {
+          statusComponent = <StatusUser status={userType} />;
+        } else {
+          statusComponent = <StatusUser status={"N/A"} />;
+        }
+
+        return statusComponent;
       },
+    },
+
+    {
+      field: "resolution",
+      headerName: "Resolution",
+      width: 150,
+      renderCell: (params) => {
+        const resolution = params.value;
+        let statusComponent;
+        if (
+          resolution === "N/A" ||
+          resolution === "Banned" ||
+          resolution === "Warning Issued" ||
+          resolution === "Temporary Ban"
+        ) {
+          statusComponent = <StatusUser status={resolution} />;
+        } else {
+          statusComponent = <StatusUser status={"N/A"} />;
+        }
+
+        return statusComponent;
+      },
+    },
     {
       field: "",
       headerName: "Action",
@@ -175,7 +209,11 @@ function  DataGridCustomers() {
   ];
 
   return (
-    <CustomDataGrid data={userData} columns={columns} rowID={"shopperID"} />
+    <CustomDataGrid
+      data={reportsData}
+      columns={columns}
+      rowID={"shopperReportID"}
+    />
   );
 }
 

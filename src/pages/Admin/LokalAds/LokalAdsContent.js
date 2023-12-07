@@ -11,7 +11,6 @@ function LokalAdsContent() {
       <PageInfoComponent
         PageName={"Lokal Ads"}
         Subtitle={"Manage Sidewide Campaigns"}
-        isPartner={true}
       />
       {/*Main Content*/}
       <Box sx={{ ...theme.components.box.mainContent }}>

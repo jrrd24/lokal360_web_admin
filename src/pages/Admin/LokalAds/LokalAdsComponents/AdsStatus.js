@@ -2,8 +2,24 @@ import React from "react";
 import { Box, Typography, Stack } from "@mui/material";
 import theme from "../../../../Theme";
 import AdStatusContainer from "../../../../components/ShopOnly/AdStatusContainer";
+import { useRequestProcessor } from "../../../../hooks/useRequestProcessor";
+import useAxiosPrivate from "../../../../hooks/useAxiosPrivate";
+import { LoadingCircle } from "../../../../components/Loading/Loading";
 
 function AdsStatus() {
+  // API CALL GET ALL AD STATUS
+  const { useCustomQuery } = useRequestProcessor();
+  const axiosPrivate = useAxiosPrivate();
+  const { data: statusCount, isLoading } = useCustomQuery(
+    "getAdStatusCount",
+    () => axiosPrivate.get(`/api/ad/status_count/`).then((res) => res.data),
+    { enabled: true }
+  );
+
+  if (isLoading) {
+    return <LoadingCircle />;
+  }
+
   return (
     <Stack spacing={3} sx={{ width: "100%" }}>
       {/*Section Name */}
@@ -14,27 +30,27 @@ function AdsStatus() {
       <Box sx={{ ...classes.mainContent }}>
         <AdStatusContainer
           color={`${theme.palette.status.delivery}`}
-          count={2}
+          count={statusCount.active}
           status={"Active"}
         />
         <AdStatusContainer
-          color={`${theme.palette.status.preparing}`}
-          count={1}
-          status={"Pending Approval"}
-        />
-        <AdStatusContainer
           color={`${theme.palette.status.complete}`}
-          count={3}
+          count={statusCount.approved}
           status={"Approved"}
         />
         <AdStatusContainer
+          color={`${theme.palette.status.preparing}`}
+          count={statusCount.pendingApproval}
+          status={"Pending Approval"}
+        />
+        <AdStatusContainer
           color={`${theme.palette.status.cancel}`}
-          count={1}
+          count={statusCount.rejected}
           status={"Rejected"}
         />
         <AdStatusContainer
           color={`${theme.palette.status.refund}`}
-          count={7}
+          count={statusCount.expired}
           status={"Expired"}
         />
       </Box>

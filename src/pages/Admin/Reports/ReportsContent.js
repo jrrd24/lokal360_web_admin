@@ -1,7 +1,7 @@
 import React from "react";
 import PageInfoComponent from "../../../components/PageInfoAndTime/PageInfoComponent";
 import { Box } from "@mui/material";
-import MyCustomers from "./CustomersShopComponents/MyCustomers";
+import UnderConstruction from "../../../components/Loading/UnderContruction";
 import theme from "../../../Theme";
 
 function ReportsContent() {
@@ -17,9 +17,11 @@ function ReportsContent() {
         {/*(Left Side)*/}
         <Box sx={{ ...classes.leftContainer }}>
           {/*My Customers*/}
-          <Box sx={{ ...classes.customersContainer }}>
+
+          <UnderConstruction />
+          {/* <Box sx={{ ...classes.customersContainer }}>
             <MyCustomers />
-          </Box>
+          </Box> */}
         </Box>
       </Box>
     </Box>

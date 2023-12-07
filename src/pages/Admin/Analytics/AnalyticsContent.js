@@ -9,8 +9,10 @@ import GraphProductStatus from "./AnalyticsComponents/GraphProductStatus";
 import GraphShopTraffic from "./AnalyticsComponents/GraphShopTraffic";
 import theme from "../../../Theme";
 import DateRangePicker from "../../../components/Pickers/DateRangePicker";
+import UnderContruction from "../../../components/Loading/UnderContruction";
 
 function AnalyticsContent() {
+  let underContruction = true;
   return (
     <Box sx={{ ...theme.components.box.pageContainer }}>
       <PageInfoComponent
@@ -19,43 +21,45 @@ function AnalyticsContent() {
       />
 
       {/*Page Content */}
-      <Box sx={{ ...theme.components.box.mainContent }}>
-        {/*Statistics Boxes Section*/}
-        <Box sx={{ ...classes.statisticsBoxContainer }}>
-          <StatisticsBoxes />
-        </Box>
-
-        {/*Main Content*/}
-        <Box sx={{ ...theme.components.box.mainContent, order: 2 }}>
-          {/*Graphs (Left Side)*/}
-          <Box sx={{ ...classes.leftContainer }}>
-            {/*Product Sales Graph*/}
-            <Box sx={{ ...theme.components.box.graphContainer }}>
-              <GraphSalesAnalytics />
-            </Box>
-
-            {/*Product Sales Graph*/}
-            <Box sx={{ ...theme.components.box.graphContainer }}>
-              <GraphProductStatus />
-            </Box>
-
-            {/*Product Sales Graph*/}
-            <Box sx={{ ...theme.components.box.graphContainer }}>
-              <GraphShopTraffic />
-            </Box>
+      {underContruction ? (
+        <UnderContruction />
+      ) : (
+        <Box sx={{ ...theme.components.box.mainContent }}>
+          {/*Statistics Boxes Section*/}
+          <Box sx={{ ...classes.statisticsBoxContainer }}>
+            <StatisticsBoxes />
           </Box>
 
-          {/*Product Info (Right Side)*/}
-          <Box sx={{ ...classes.rightContainer }}>
-            {/*Date time */}
-            <Box sx={{ ...classes.dateTimeContainer }}>
-              <DateRangePicker />
+          {/*Main Content*/}
+          <Box sx={{ ...theme.components.box.mainContent, order: 2 }}>
+            {/*Graphs (Left Side)*/}
+            <Box sx={{ ...classes.leftContainer }}>
+              {/*Product Sales Graph*/}
+              <Box sx={{ ...theme.components.box.graphContainer }}>
+                <GraphSalesAnalytics />
+              </Box>
+
+              {/*Product Sales Graph*/}
+              <Box sx={{ ...theme.components.box.graphContainer }}>
+                <GraphProductStatus />
+              </Box>
+
+              {/*Product Sales Graph*/}
+              <Box sx={{ ...theme.components.box.graphContainer }}>
+                <GraphShopTraffic />
+              </Box>
             </Box>
-           
-           
+
+            {/*Product Info (Right Side)*/}
+            <Box sx={{ ...classes.rightContainer }}>
+              {/*Date time */}
+              <Box sx={{ ...classes.dateTimeContainer }}>
+                <DateRangePicker />
+              </Box>
+            </Box>
           </Box>
         </Box>
-      </Box>
+      )}
     </Box>
   );
 }

@@ -1,23 +1,18 @@
 import React from "react";
-import { Avatar, IconButton, Box } from "@mui/material";
-import { Info } from "@mui/icons-material";
+import { Avatar, IconButton, Box, Typography } from "@mui/material";
+import { Cancel, CheckCircle, Info } from "@mui/icons-material";
 import CustomDataGrid from "../../../../components/CustomDataGrid";
 import { BASE_URL } from "../../../../api/Api";
 import ShopStatus from "../../../../components/ShopOnly/StatusAndTags/ShopStatus";
+import theme from "../../../../Theme";
 
-function ShopGrid({ data, isPending }) {
+function AllShopsGrid({ data }) {
   const handleClick = (event) => {};
 
   // Define data grid columns
   const columns = [
     {
-      field: "shop_name",
-      headerName: "Shop Name",
-      width: 200,
-    },
-
-    {
-      field: "profile_pic",
+      field: "logo_img_link",
       headerName: "",
       minWidth: 80,
       disableExport: true,
@@ -43,28 +38,59 @@ function ShopGrid({ data, isPending }) {
     },
 
     {
-      field: "owner_name",
-      headerName: "Shop Owner",
-      width: 200,
+      field: "shop_name",
+      headerName: "Shop Name",
+      width: 185,
     },
 
     {
-      field: "status",
-      headerName: "Status",
-      width: 150,
-      renderCell: (params) => {
-        const Status = params.value;
-        let statusComponent;
-        if (
-          Status === "Approved" ||
-          Status === "Pending Approval" ||
-          Status === "Rejected"
-        ) {
-          statusComponent = <ShopStatus status={Status} />;
-        } else {
-          statusComponent = <ShopStatus status={"N/A"} />;
-        }
+      field: "owner_name",
+      headerName: "Shop Owner",
+      width: 185,
+    },
 
+    {
+      field: "sells_raw_mats",
+      headerName: "Raw Materials",
+      minWidth: 120,
+      align: "center",
+      headerAlign: "center",
+      disableExport: true,
+      renderCell: (params) => {
+        const sellsRawMats = params.row.sells_raw_mats;
+        let statusComponent;
+        statusComponent = (
+          <Typography>
+            {sellsRawMats ? (
+              <CheckCircle sx={{ color: `${theme.palette.success.main}` }} />
+            ) : (
+              <Cancel sx={{ color: `${theme.palette.danger.main}` }} />
+            )}
+          </Typography>
+        );
+        return statusComponent;
+      },
+    },
+
+    {
+      field: "is_360_partner",
+      headerName: "360 Partner",
+      minWidth: 110,
+      align: "center",
+      headerAlign: "center",
+      disableExport: true,
+      renderCell: (params) => {
+        const partner = params.row.is_360_partner;
+        let statusComponent;
+        statusComponent = (
+          <Typography>
+            {partner ? (
+              <CheckCircle sx={{ color: `${theme.palette.success.main}` }} />
+            ) : (
+              <Cancel sx={{ color: `${theme.palette.danger.main}` }} />
+            )}
+          </Typography>
+        );
         return statusComponent;
       },
     },
@@ -72,7 +98,7 @@ function ShopGrid({ data, isPending }) {
     {
       field: "shopRegistrationID",
       headerName: "Action",
-      width: 60,
+      minWidth: 60,
       align: "center",
       headerAlign: "center",
       sortable: false,
@@ -101,10 +127,10 @@ function ShopGrid({ data, isPending }) {
     <CustomDataGrid
       data={data}
       columns={columns}
-      rowID={"shopRegistrationID"}
-      rowsPerPage={isPending ? 5 : 10}
+      rowID={"shopID"}
+      rowsPerPage={10}
     />
   );
 }
 
-export default ShopGrid;
+export default AllShopsGrid;

@@ -1,10 +1,9 @@
 import React from "react";
-import { Box, } from "@mui/material";
+import { Box } from "@mui/material";
 import PageInfoComponent from "../../../components/PageInfoAndTime/PageInfoComponent";
 import theme from "../../../Theme";
-import ShopCustomer from "./ShopsManagementComponent/ShopCustomer";
-
-
+import PendingShops from "./ShopsManagementComponent/PendingShops";
+import AllShops from "./ShopsManagementComponent/AllShops";
 
 function ShopsManagementContent() {
   return (
@@ -13,13 +12,17 @@ function ShopsManagementContent() {
         PageName={"Shops Management"}
         Subtitle={"View and Manage Shop Approval Requests"}
       />
-   {/*Main Content*/}
-   <Box sx={{ ...theme.components.box.mainContent }}>
+      {/*Main Content*/}
+      <Box sx={{ ...theme.components.box.mainContent }}>
         {/*(Left Side)*/}
         <Box sx={{ ...classes.leftContainer }}>
-          {/*My Customers*/}
+          {/*Pending Shops*/}
           <Box sx={{ ...classes.customersContainer }}>
-            <ShopCustomer />
+            <PendingShops />
+          </Box>
+          {/*All Shops*/}
+          <Box sx={{ ...classes.customersContainer }}>
+            <AllShops />
           </Box>
         </Box>
       </Box>
