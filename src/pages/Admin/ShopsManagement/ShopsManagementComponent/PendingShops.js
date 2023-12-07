@@ -6,7 +6,7 @@ import { useRequestProcessor } from "../../../../hooks/useRequestProcessor";
 import useAxiosPrivate from "../../../../hooks/useAxiosPrivate";
 import { LoadingCircle } from "../../../../components/Loading/Loading";
 
-function PendingShops() {
+function PendingShops({ handleSave, open, handleClose, handleOpen }) {
   const { useCustomQuery } = useRequestProcessor();
   const axiosPrivate = useAxiosPrivate();
 
@@ -30,7 +30,14 @@ function PendingShops() {
         <Box direction={"row"} sx={{ ...classes.sectionName }}>
           <Typography variant="sectionTitle">Shop Approval Requests</Typography>
         </Box>
-        <ShopGrid data={requestData} isPending />
+        <ShopGrid
+          data={requestData}
+          isPending
+          open={open}
+          handleClose={handleClose}
+          handleOpen={handleOpen}
+          handleSave={handleSave}
+        />
       </Stack>
     </Box>
   );

@@ -1,12 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import { Avatar, IconButton, Box } from "@mui/material";
 import { Info } from "@mui/icons-material";
 import CustomDataGrid from "../../../../components/CustomDataGrid";
 import { BASE_URL } from "../../../../api/Api";
 import ShopStatus from "../../../../components/ShopOnly/StatusAndTags/ShopStatus";
+import ApprovalDialog from "../ShopManagementDialogs/ApprovalDialog";
 
-function ShopGrid({ data, isPending }) {
-  const handleClick = (event) => {};
+function ShopGrid({
+  data,
+  isPending,
+  open,
+  handleClose,
+  handleOpen,
+  handleSave,
+}) {
+  const [activeID, setActiveID] = useState(0);
+  const handleClick = (id) => {
+    handleOpen();
+    setActiveID(id);
+  };
 
   // Define data grid columns
   const columns = [
@@ -85,7 +97,7 @@ function ShopGrid({ data, isPending }) {
           <Box>
             <IconButton
               variant="contained"
-              onClick={handleClick}
+              onClick={() => handleClick(params.row.shopRegistrationID)}
               color="primary"
             >
               <Info />
@@ -98,12 +110,21 @@ function ShopGrid({ data, isPending }) {
   ];
 
   return (
-    <CustomDataGrid
-      data={data}
-      columns={columns}
-      rowID={"shopRegistrationID"}
-      rowsPerPage={isPending ? 5 : 10}
-    />
+    <div>
+      <CustomDataGrid
+        data={data}
+        columns={columns}
+        rowID={"shopRegistrationID"}
+        rowsPerPage={isPending ? 5 : 10}
+      />
+
+      <ApprovalDialog
+        open={open}
+        handleClose={handleClose}
+        handleSave={handleSave}
+        id={activeID}
+      />
+    </div>
   );
 }
 

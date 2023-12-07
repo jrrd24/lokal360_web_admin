@@ -13,6 +13,7 @@ import ButtonSave from "../../../../../components/Buttons/ButtonSave";
 import ButtonCloseDialog from "../../../../../components/Buttons/ButtonCloseDialog";
 import { useForm } from "react-hook-form";
 import { useMediaQuery } from "@mui/material";
+import UnderContruction from "../../../../../components/Loading/UnderContruction";
 
 function NewPromoDialog({ open, handleClose, handleSave }) {
   const isSmScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
@@ -49,7 +50,9 @@ function NewPromoDialog({ open, handleClose, handleSave }) {
           >
             <Box sx={{ ...theme.components.dialog.dialogTitleContent }}>
               {/* Dialog Title*/}
-              <Typography variant="sectionTitle">Create New Promo</Typography>
+              <Typography variant="sectionTitle">
+                Create New Category
+              </Typography>
 
               {/*  Buttons */}
               <DialogActions sx={{ gap: "16px" }}>
@@ -67,7 +70,7 @@ function NewPromoDialog({ open, handleClose, handleSave }) {
           <DialogContent sx={{ ...theme.components.dialog.dialogContent }}>
             {/*Main*/}
             <Stack spacing={2} sx={{ width: "600px" }}>
-              PLACE CONTENT HERE
+              <UnderContruction />
             </Stack>
           </DialogContent>
 
