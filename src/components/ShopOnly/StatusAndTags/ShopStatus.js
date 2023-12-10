@@ -9,7 +9,7 @@ function ShopStatus({ status }) {
     if (status === "Approved") {
       setColorType("success");
     } else if (status === "Rejected") {
-      setColorType("rejected");
+      setColorType("danger");
     } else if (status === "Pending Approval") {
       setColorType("orange");
     }

@@ -6,7 +6,7 @@ import { useRequestProcessor } from "../../../../hooks/useRequestProcessor";
 import useAxiosPrivate from "../../../../hooks/useAxiosPrivate";
 import { LoadingCircle } from "../../../../components/Loading/Loading";
 
-function PendingShops({ handleSave, open, handleClose, handleOpen }) {
+function PendingShops({ showAlert, open, handleClose, handleOpen }) {
   const { useCustomQuery } = useRequestProcessor();
   const axiosPrivate = useAxiosPrivate();
 
@@ -36,7 +36,7 @@ function PendingShops({ handleSave, open, handleClose, handleOpen }) {
           open={open}
           handleClose={handleClose}
           handleOpen={handleOpen}
-          handleSave={handleSave}
+        showAlert={showAlert}
         />
       </Stack>
     </Box>

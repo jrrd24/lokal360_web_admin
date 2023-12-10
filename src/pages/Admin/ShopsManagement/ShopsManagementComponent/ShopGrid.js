@@ -12,7 +12,7 @@ function ShopGrid({
   open,
   handleClose,
   handleOpen,
-  handleSave,
+  showAlert,
 }) {
   const [activeID, setActiveID] = useState(0);
   const handleClick = (id) => {
@@ -121,8 +121,8 @@ function ShopGrid({
       <ApprovalDialog
         open={open}
         handleClose={handleClose}
-        handleSave={handleSave}
         id={activeID}
+        showAlert={showAlert}
       />
     </div>
   );

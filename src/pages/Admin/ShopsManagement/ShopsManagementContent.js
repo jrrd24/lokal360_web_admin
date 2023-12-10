@@ -26,10 +26,6 @@ function ShopsManagementContent() {
     hideAlert,
   } = useAlert();
 
-  const handleSave = (severity, alertMsg) => {
-    showAlert(severity, alertMsg);
-  };
-
   return (
     <div>
       <Box sx={{ backgroundColor: "transparent" }}>
@@ -44,7 +40,7 @@ function ShopsManagementContent() {
             {/*Pending Shops*/}
             <Box sx={{ ...classes.customersContainer }}>
               <PendingShops
-                handleSave={handleSave}
+                showAlert={showAlert}
                 open={open}
                 handleClose={handleClose}
                 handleOpen={handleOpen}

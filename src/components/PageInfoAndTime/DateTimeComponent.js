@@ -70,7 +70,7 @@ const DateTimeComponent = () => {
     return (
       <>
         <Typography variant="subtitle1">
-          <Typography variant="h5" component="span" sx={{ fontWeight: "bold" }}>
+          <Typography variant="h5" sx={{ fontWeight: "bold" }}>
             {dayOfWeek}
             {", "}
           </Typography>
@@ -83,9 +83,9 @@ const DateTimeComponent = () => {
   return (
     <div style={{ textAlign: "right", userSelect: "none" }}>
       {getFormattedDate()}
-      <Typography variant="h5" sx={{ fontWeight: "bold" }}>
+      {/* <Typography variant="h5" sx={{ fontWeight: "bold" }}>
         {getFormattedTime()}
-      </Typography>
+      </Typography> */}
     </div>
   );
 };

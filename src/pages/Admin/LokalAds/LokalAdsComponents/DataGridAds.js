@@ -34,7 +34,6 @@ function DataGridAds() {
     row.action = [row.lokalAdsID, row.status];
   });
 
-
   // Define data grid columns
   const columns = [
     {
