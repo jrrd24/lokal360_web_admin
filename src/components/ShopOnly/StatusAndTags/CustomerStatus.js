@@ -7,11 +7,11 @@ function CustomerStatus({ status }) {
 
   useEffect(() => {
     if (status === "Shopper") {
-      setColorType("success");
+      setColorType("shopper");
     } else if (status === "Merchant") {
-      setColorType("danger");
+      setColorType("shopOwner");
     } else if (status === "Employee") {
-      setColorType("warning");
+      setColorType("shopEmployee");
     } else if (status === "N/A") {
       setColorType("primary");
     } else {
@@ -20,7 +20,7 @@ function CustomerStatus({ status }) {
   }, [status]);
 
   const color = colorType ? theme.palette[colorType].main : "inherit";
-  const bgColor = color + "40"
+  const bgColor = color + "40";
 
   return (
     <Box

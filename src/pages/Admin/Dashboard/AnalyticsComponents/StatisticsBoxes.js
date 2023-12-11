@@ -3,7 +3,7 @@ import { Box, Stack } from "@mui/material";
 import StatisticBox from "../../../../components/StatisticBox";
 import theme from "../../../../Theme";
 
-function StatisticsBoxes() {
+function StatisticsBoxes({ data }) {
   return (
     <Box sx={{ ...classes.main }}>
       <Stack spacing={1} direction={"row"} sx={{ ...classes.stackContainer }}>
@@ -11,15 +11,24 @@ function StatisticsBoxes() {
         <Box sx={{ ...classes.statisticsBoxContainer }}>
           <StatisticBox
             name={"Total Users"}
-            amt={2595}
-            prevAmt={278}
-           
+            amt={data?.userCount?.total_count || 0}
+            type={"User"}
           />
-          <StatisticBox name={"Total Shoppers"} amt={422} prevAmt={390} />
-          <StatisticBox name={"Total Merchants"} amt={265} prevAmt={255} />
-          <StatisticBox name={"Banned Users"} amt={17} prevAmt={6} />
-          <StatisticBox name={"Banned Shops"} amt={4280} prevAmt={4000} />
-          
+          <StatisticBox
+            name={"Total Shoppers"}
+            amt={data?.shopperCount?.total_count || 0}
+            type={"Shopper"}
+          />
+          <StatisticBox
+            name={"Total Merchants"}
+            amt={data?.shopOwnerCount?.total_count || 0}
+            type={"Merchant"}
+          />
+          <StatisticBox
+            name={"Total Employees"}
+            amt={data?.employeeCount?.total_count || 0}
+            type={"Employee"}
+          />
         </Box>
       </Stack>
     </Box>
@@ -41,7 +50,7 @@ const classes = {
     "@media (max-width: 1189px)": {
       ...theme.components.box.mainContent,
     },
-    "@media (max-width: 913px)": {
+    "@media (max-width: 900px)": {
       gap: "0px",
       minWidth: "100%",
     },
@@ -60,7 +69,7 @@ const classes = {
       alignItems: "center",
       justifyContent: "center",
     },
-    "@media (max-width: 913px)": {
+    "@media (max-width: 1200px)": {
       px: 2,
       height: "150px",
       overflow: "auto",

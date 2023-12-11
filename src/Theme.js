@@ -47,6 +47,11 @@ const theme = createTheme({
       cancel: "#AB3130",
       refund: "#231F20",
     },
+
+    //? for user tag
+    shopper: { main: "#92B4EC" },
+    shopOwner: { main: "#EF4040" },
+    shopEmployee: { main: "#FFA732" },
   },
 
   typography: {
@@ -149,8 +154,9 @@ const theme = createTheme({
         flexDirection: "row",
         gap: "32px",
         flexWrap: "wrap",
-        alignItems: "flex-start",
+        alignItems: "center",
         justifyContent: "center",
+        width: "100%",
       },
 
       //? for Box wrappers inside the Main Content

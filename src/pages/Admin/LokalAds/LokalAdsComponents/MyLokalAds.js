@@ -3,10 +3,9 @@ import DataGridAds from "./DataGridAds";
 import theme from "../../../../Theme";
 import ButtonAdd from "../../../../components/Buttons/ButtonAdd";
 import NewAdvertismentDialog from "./NewAdvertismentDialog/NewAdvertismentDialog";
-import { Box, Stack, Typography } from '@mui/material';
+import { Box, Stack, Typography } from "@mui/material";
 
-
-function MyLokalAds() {
+function MyLokalAds({ showAlert }) {
   // Handle Open Dialog Box (AddProduct)
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
@@ -27,7 +26,7 @@ function MyLokalAds() {
 
             {/*TODO: Add onClick for Button */}
           </Box>
-          <DataGridAds />
+          <DataGridAds showAlert={showAlert} />
         </Stack>
       </Box>
 

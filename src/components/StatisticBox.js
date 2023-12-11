@@ -1,81 +1,58 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Typography, Stack } from "@mui/material";
 import theme from "../Theme";
-import { useDateRange } from "../contexts/DateRangeContext";
 import NumberFormat from "../utils/NumberFormat";
+import { BadgeRounded, Group, ShoppingBag, Store } from "@mui/icons-material";
 
-function StatisticBox({ name, amt, prevAmt, isMoney }) {
-  const [versus, setVersus] = useState("--");
-  const [compareStatus, setCompareStatus] = useState("none");
-  const { dateRange } = useDateRange(); // Access the context values
-  const startDate = dateRange.startDate;
-  const endDate = dateRange.endDate;
-  const [percentage, setPercentage] = useState(
-    (((amt - prevAmt) / prevAmt) * 100).toFixed(2)
-  );
+function StatisticBox({ name, amt, prevAmt, isMoney, type }) {
+  const [colorType, setColorType] = useState("");
+  const [icon, setIcon] = useState(null);
+  const iconHW = 30;
 
-  // Recalculate the percentage whenever amt and prevAmt change
   useEffect(() => {
-    const newPercentage = (((amt - prevAmt) / prevAmt) * 100).toFixed(2);
-    setPercentage(newPercentage);
-  }, [amt, prevAmt]);
-
-  //Set Versus
-  const calculateVersus = useCallback(() => {
-    const today = new Date();
-
-    // Check if the selected range corresponds to today
-    if (
-      startDate.toDateString() === today.toDateString() &&
-      endDate.toDateString() === today.toDateString()
-    ) {
-      setVersus("Yesterday");
-    }
-    // For other cases, display "Custom Range"
-    else {
-      const numDaysSelected =
-        Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24)) + 1;
-      setVersus(`Last ${numDaysSelected} Days`);
-    }
-  }, [startDate, endDate]);
-
-  //Set Percentage
-  useEffect(() => {
-    setPercentage((((amt - prevAmt) / prevAmt) * 100).toFixed(2));
-    // Calculate Versus based on startDate and endDate
-    calculateVersus();
-  }, [amt, prevAmt, startDate, endDate, calculateVersus]);
-
-  // Set Compare Status based on amt and prevAmt
-  useEffect(() => {
-    if (amt > prevAmt) {
-      setCompareStatus("increase");
-    } else if (amt < prevAmt) {
-      setCompareStatus("decrease");
+    if (type === "User") {
+      setColorType("primary");
+      setIcon(<Group sx={{ height: iconHW, width: iconHW }} />);
+    } else if (type === "Merchant") {
+      setColorType("shopOwner");
+      setIcon(<Store sx={{ height: iconHW, width: iconHW }} />);
+    } else if (type === "Employee") {
+      setColorType("shopEmployee");
+      setIcon(<BadgeRounded sx={{ height: iconHW, width: iconHW }} />);
+    } else if (type === "Shopper") {
+      setColorType("shopper");
+      setIcon(<ShoppingBag sx={{ height: iconHW, width: iconHW }} />);
     } else {
-      setCompareStatus("none");
+      setColorType("text");
     }
-  }, [amt, prevAmt]);
+  }, [type]);
 
+  const color = colorType ? theme.palette[colorType].main : "inherit";
+  const bgColor = color + "40";
   return (
     <Box
       sx={{
         ...theme.components.box.sectionContainer,
+        backgroundColor: bgColor,
         width: 250,
         minHeight: 110,
         px: 2,
         py: 1,
         textAlign: "left",
+        display: "flex",
+        alignItems: "center",
       }}
     >
+      {icon && <Box sx={{ marginRight: 3, color: color }}>{icon}</Box>}
+
       <Stack spacing={1} width={"100%"}>
         <Stack spacing={-0.5}>
           <Typography
             variant="body1"
             sx={{
-              color: "#44444499",
               fontWeight: 700,
-              fontSize: 20,
+              fontSize: 18,
+              color: theme.palette.text.sixty,
             }}
           >
             {name}
@@ -85,40 +62,11 @@ function StatisticBox({ name, amt, prevAmt, isMoney }) {
             variant="sectionHeader"
             sx={{
               fontWeight: 700,
-              fontSize: 24,
+              fontSize: 30,
+              color: color,
             }}
           >
-            <NumberFormat value={amt} isPeso={isMoney}  />
-          </Typography>
-        </Stack>
-
-        <Stack
-          direction={"row"}
-          sx={{
-            alignItems: "baseline",
-            justifyContent: "space-between",
-          }}
-        >
-          <Typography
-            variant="body1"
-            sx={{ color: "#44444499", width: "100%", fontSize: 16 }}
-          >
-            vs {versus}
-          </Typography>
-          <Typography
-            variant="body1"
-            sx={{
-              color:
-                compareStatus === "increase" && percentage !== 0
-                  ? "#7A9163"
-                  : compareStatus === "decrease" && percentage !== 0
-                  ? "#AB3130"
-                  : "#444",
-              fontSize: 16,
-              fontWeight: 700,
-            }}
-          >
-            {percentage}%
+            <NumberFormat value={amt} isPeso={isMoney} />
           </Typography>
         </Stack>
       </Stack>

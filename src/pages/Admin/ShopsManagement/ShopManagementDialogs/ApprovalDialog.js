@@ -56,7 +56,7 @@ function ApprovalDialog({ open, handleClose, isSmScreen, id, showAlert }) {
   const { mutate } = useCustomMutate(
     "resolveApprovalRequest",
     async (data) => {
-      const response = await axiosPrivate.patch(
+    await axiosPrivate.patch(
         `/api/register_shop/review_registration/?shopRegistrationID=${id}`,
         data
       );

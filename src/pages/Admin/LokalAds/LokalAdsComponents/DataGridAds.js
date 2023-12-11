@@ -1,18 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import { IconButton, Avatar, Button, Typography, Box } from "@mui/material";
 import theme from "../../../../Theme";
-import { Delete, Edit } from "@mui/icons-material";
+import { Delete } from "@mui/icons-material";
 import AdsStatus from "../../../../components/ShopOnly/StatusAndTags/AdsStatus";
 import CustomDataGrid from "../../../../components/CustomDataGrid";
-//import dummy data
-import lokalAdsData from "../../../../data/lokalAdsData";
 import { useRequestProcessor } from "../../../../hooks/useRequestProcessor";
 import useAxiosPrivate from "../../../../hooks/useAxiosPrivate";
 import { LoadingCircle } from "../../../../components/Loading/Loading";
 import { BASE_URL } from "../../../../api/Api";
 import Zoom from "react-medium-image-zoom";
+import AdApprovalDialog from "../LokalAdsDialog/AdApprovalDialog";
 
-function DataGridAds() {
+function DataGridAds({ showAlert }) {
+  const [openRejectScreen, setOpenRejectScreen] = useState(false);
+  const [adID, setAdID] = useState(0);
+
+  const handleOpenReject = (id) => {
+    setAdID(id);
+    setOpenRejectScreen(true);
+  };
+  const handleCloseReject = () => {
+    setOpenRejectScreen(false);
+  };
+
   //API CALL GET ALL SITEWIDE ADS
   const { useCustomQuery, useCustomMutate } = useRequestProcessor();
   const axiosPrivate = useAxiosPrivate();
@@ -26,6 +36,26 @@ function DataGridAds() {
     { enabled: true }
   );
 
+  const { mutate } = useCustomMutate(
+    "resolveAdApproval",
+    async (data) => {
+      await axiosPrivate.patch(
+        `api/ad/approval/?lokalAdsID=${data.lokalAdsID}`,
+        data
+      );
+    },
+    ["getAllAds"],
+    {
+      onError: (error) => {
+        showAlert("error", error.response.data.error);
+      },
+      onSuccess: () => {
+        handleCloseReject();
+        showAlert("success", `Ad Resolution Applied Successfully`);
+      },
+    }
+  );
+
   if (isLoading) {
     return <LoadingCircle />;
   }
@@ -33,6 +63,24 @@ function DataGridAds() {
   lokalAdsData.forEach((row) => {
     row.action = [row.lokalAdsID, row.status];
   });
+
+  const HandleApprove = (lokalAdsID) => {
+    const requestData = {
+      status: "Approved",
+      message: null,
+      lokalAdsID: lokalAdsID,
+    };
+    mutate(requestData);
+  };
+
+  const HandleReject = (lokalAdsID, message) => {
+    const requestData = {
+      status: "Rejected",
+      message: message,
+      lokalAdsID: lokalAdsID,
+    };
+    mutate(requestData);
+  };
 
   // Define data grid columns
   const columns = [
@@ -132,8 +180,13 @@ function DataGridAds() {
               <Box
                 sx={{ display: "flex", gap: "8px", justifyContent: "center" }}
               >
-                <ButtonApprove />
-                <ButtonReject />
+                <ButtonApprove
+                  onClickAction={() => HandleApprove(params.row.lokalAdsID)}
+                />
+
+                <ButtonReject
+                  onClickAction={() => handleOpenReject(params.row.lokalAdsID)}
+                />
               </Box>
             ) : (
               <IconButton onClick={() => {}}>
@@ -148,13 +201,22 @@ function DataGridAds() {
   ];
 
   return (
-    <CustomDataGrid
-      data={lokalAdsData}
-      columns={columns}
-      rowID={"lokalAdsID"}
-      autoHeight
-      disableDensity
-    />
+    <div>
+      <CustomDataGrid
+        data={lokalAdsData}
+        columns={columns}
+        rowID={"lokalAdsID"}
+        autoHeight
+        disableDensity
+      />
+
+      <AdApprovalDialog
+        open={openRejectScreen}
+        handleCloseReject={handleCloseReject}
+        HandleReject={HandleReject}
+        id={adID}
+      />
+    </div>
   );
 }
 
