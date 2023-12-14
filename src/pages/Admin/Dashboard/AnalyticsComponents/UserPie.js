@@ -20,7 +20,7 @@ export default function UserPie({ rawData }) {
       {/*Section Name */}
 
       <Typography variant="sectionTitle" sx={{ textAlign: "left" }}>
-        Lokal 360 Users
+        Users
       </Typography>
 
       <PieChart

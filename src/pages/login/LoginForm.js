@@ -194,43 +194,6 @@ const LoginForm = ({ loginOnly }) => {
           </Stack>
         </form>
 
-        {/*Or/ Google */}
-        {!loginOnly && (
-          <Stack spacing={2}>
-            {/*Or */}
-            <Box style={{ display: "flex", alignItems: "center" }}>
-              <Divider style={{ flexGrow: 1 }} />
-              <Typography
-                variant="body1"
-                style={{ margin: "0 10px", fontSize: 17, color: "#8F8F8F" }}
-              >
-                Or
-              </Typography>
-              <Divider style={{ flexGrow: 1 }} />
-            </Box>
-
-            <Button
-              variant="outlined"
-              sx={{ backgroundColor: "#ffffff" }}
-              startIcon={<Person />}
-              onClick={() => navigate("/register/")}
-            >
-              Create An Account
-            </Button>
-          </Stack>
-        )}
-
-        {loginOnly && (
-          <Stack spacing={2} sx={{ textAlign: "left" }}>
-            <Alert severity="info">
-              Only <b> Registered Accounts</b> Can Apply for a Shop
-            </Alert>
-            <Alert severity="warning">
-              A User can only own <b>1 Shop</b>
-            </Alert>
-          </Stack>
-        )}
-
         {/*Alert */}
         <CustomAlert
           open={open}

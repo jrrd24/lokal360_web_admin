@@ -10,6 +10,7 @@ import {
   Stack,
   Typography,
   Zoom as ZoomTransition,
+  useMediaQuery,
 } from "@mui/material";
 import React, { useState } from "react";
 import theme from "../../../../Theme";
@@ -30,7 +31,8 @@ import Zoom from "react-medium-image-zoom";
 import { useForm } from "react-hook-form";
 import emailjs from "@emailjs/browser";
 
-function ApprovalDialog({ open, handleClose, isSmScreen, id, showAlert }) {
+function ApprovalDialog({ open, handleClose, id, showAlert }) {
+  const isSmScreen = useMediaQuery((theme) => theme.breakpoints.down("sm"));
   const [openRejectScreen, setOpenRejectScreen] = useState(false);
 
   //HOOK CALLS
@@ -56,7 +58,7 @@ function ApprovalDialog({ open, handleClose, isSmScreen, id, showAlert }) {
   const { mutate } = useCustomMutate(
     "resolveApprovalRequest",
     async (data) => {
-    await axiosPrivate.patch(
+      await axiosPrivate.patch(
         `/api/register_shop/review_registration/?shopRegistrationID=${id}`,
         data
       );

@@ -8,7 +8,7 @@ function AtAGlance({ data }) {
     <Stack spacing={3} direction={"column"} sx={{ ...classes.main }}>
       {/*Section Name */}
       <Typography variant="sectionTitle" sx={{ textAlign: "left" }}>
-        Lokal 360 At A Glance
+        At A Glance
       </Typography>
 
       <Stack spacing={2} direction={"row"} sx={{ ...classes.stackContainer }}>

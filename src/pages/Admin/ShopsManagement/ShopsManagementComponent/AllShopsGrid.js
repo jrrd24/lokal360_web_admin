@@ -1,13 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import { Avatar, IconButton, Box, Typography } from "@mui/material";
 import { Cancel, CheckCircle, Info } from "@mui/icons-material";
 import CustomDataGrid from "../../../../components/CustomDataGrid";
 import { BASE_URL } from "../../../../api/Api";
 import ShopStatus from "../../../../components/ShopOnly/StatusAndTags/ShopStatus";
 import theme from "../../../../Theme";
+import ShopDetailsDialog from "../ShopDetailsDialog.js/ShopDetailsDialog";
 
 function AllShopsGrid({ data }) {
-  const handleClick = (event) => {};
+  const [activeID, setActiveID] = useState(0);
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleClick = (id) => {
+    handleOpen();
+    setActiveID(id);
+  };
 
   // Define data grid columns
   const columns = [
@@ -96,7 +111,7 @@ function AllShopsGrid({ data }) {
     },
 
     {
-      field: "shopRegistrationID",
+      field: "shopID",
       headerName: "Action",
       minWidth: 60,
       align: "center",
@@ -111,7 +126,7 @@ function AllShopsGrid({ data }) {
           <Box>
             <IconButton
               variant="contained"
-              onClick={handleClick}
+              onClick={() => handleClick(params.row.shopID)}
               color="primary"
             >
               <Info />
@@ -124,12 +139,16 @@ function AllShopsGrid({ data }) {
   ];
 
   return (
-    <CustomDataGrid
-      data={data}
-      columns={columns}
-      rowID={"shopID"}
-      rowsPerPage={10}
-    />
+    <div>
+      <CustomDataGrid
+        data={data}
+        columns={columns}
+        rowID={"shopID"}
+        rowsPerPage={10}
+      />
+
+      <ShopDetailsDialog open={open} id={activeID} handleClose={handleClose} />
+    </div>
   );
 }
 

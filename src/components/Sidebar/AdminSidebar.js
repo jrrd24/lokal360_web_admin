@@ -134,7 +134,7 @@ export default function AdminSidebar({ component: MainComponent }) {
     const currentPathname = window.location.pathname;
     const menuItems = [
       "/admin/dashboard",
-      "/admin/analytics",
+      // "/admin/analytics",
       "/admin/reports",
       "/admin/category",
       "/admin/shop_management",
@@ -143,7 +143,7 @@ export default function AdminSidebar({ component: MainComponent }) {
     ];
     const menuItemTexts = [
       "Dashboard",
-      "Analytics",
+      // "Analytics",
       "Reports",
       "Categories",
       "Shops Management",
@@ -256,11 +256,11 @@ export default function AdminSidebar({ component: MainComponent }) {
               icon: <DashboardIcon />,
               onClick: handleDashboardClick,
             },
-            {
-              text: "Analytics",
-              icon: <BarChartIcon />,
-              onClick: handleAnalyticsClick,
-            },
+            // {
+            //   text: "Analytics",
+            //   icon: <BarChartIcon />,
+            //   onClick: handleAnalyticsClick,
+            // },
             {
               text: "Reports",
               icon: <ReportIcon />,
